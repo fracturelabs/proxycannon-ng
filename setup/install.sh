@@ -3,6 +3,13 @@
 #
 
 ###################
+# Configure Linode API
+###################
+echo 'Enter your Linode API token and hit enter'
+read token
+echo "token=$token" >> $(dirname "$0")/../nodes/linode/terraform.tfvars
+
+###################
 # install software
 ###################
 # update and install deps
@@ -17,11 +24,6 @@ cp terraform /usr/bin/
 rm -f terraform_0.11.10_linux_amd64.zip
 rm -rf terraform
 
-# create directory for our Linode token
-mkdir ~/.linode
-echo 'Enter your Linode API token and hit enter'
-read token
-echo $token > ~/.linode/token
 
 ################
 # setup openvpn
@@ -85,7 +87,6 @@ echo "####################### OpenVPN client config [proxycannon-client.conf] ##
 cat ~/proxycannon-client.conf
 
 echo "####################### Be sure to add your AWS API keys and SSH keys to the following locations ###################"
-echo "copy your aws ssh private key to ~/.ssh/proxycannon.pem and chmod 600"
-echo "place your aws api id and key in ~/.aws/credentials"
+echo "copy your ssh private key to ~/.ssh/proxycannon.pem and chmod 600"
 
-echo "[!] remember to run 'terraform init' in the nodes/aws on first use"
+echo "[!] remember to run 'terraform init' in nodes/linode on first use"
