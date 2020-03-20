@@ -17,9 +17,11 @@ cp terraform /usr/bin/
 rm -f terraform_0.11.10_linux_amd64.zip
 rm -rf terraform
 
-# create directory for our aws credentials
-mkdir ~/.aws
-touch ~/.aws/credentials
+# create directory for our Linode token
+mkdir ~/.linode
+echo 'Enter your Linode API token and hit enter'
+read token
+echo $token > ~/.linode/token
 
 ################
 # setup openvpn
@@ -51,7 +53,7 @@ systemctl start openvpn@node-server.service
 systemctl start openvpn@client-server.service
 
 # modify client config with remote IP of this server
-EIP=`curl -s http://169.254.169.254/latest/meta-data/public-ipv4`
+EIP=`curl -s http://ifconfig.me`
 sed -i "s/REMOTE_PUB_IP/$EIP/" ~/proxycannon-client.conf
 
 ###################
