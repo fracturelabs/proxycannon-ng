@@ -3,13 +3,6 @@
 #
 
 ###################
-# Configure Linode API
-###################
-echo 'Enter your Linode API token and hit enter'
-read token
-echo "token=$token" >> $(dirname "$0")/../nodes/linode/terraform.tfvars
-
-###################
 # install software
 ###################
 # update and install deps
